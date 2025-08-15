@@ -1,0 +1,1462 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACADEMIA - Your Personal AI Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preload" href="{% static 'images/project1.webp' %}" as="image" type="image/webp">
+    <link rel="preload" href="{% static 'images/project2.webp' %}" as="image" type="image/webp">
+    <style>
+        :root {
+            /* Elegant Minimalist Palette */
+            --bg-light: #f8f9fa;
+            --bg-dark: #2c2c2c;
+            --bg-darker: #1a1a1a;
+            --card-bg: #ffffff;
+            --text-dark: #2c2c2c;
+            --text-light: #ffffff;
+            --text-muted: #6c757d;
+            --accent-gold: #d4af37;
+            --accent-dark: #1a1a1a;
+            --border-light: #e9ecef;
+            --shadow-subtle: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --gradient-success: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* Elegant Typography */
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        .script-font {
+            font-family: 'Dancing Script', cursive;
+            font-style: italic;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        section {
+            padding: 8rem 5%;
+        }
+
+        .section-light {
+            background: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .section-dark {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .section-darker {
+            background: var(--bg-darker);
+            color: var(--text-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header .script-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            margin: 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            text-align: center;
+        }
+
+        .service-image {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-image img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        .service-card h3 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            color: var(--text-dark);
+            text-decoration: none;
+            border: 1px solid var(--text-dark);
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--text-dark);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn:hover {
+            color: white;
+            border-color: var(--text-dark);
+        }
+
+        .btn-gold {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .btn-gold::before {
+            background: var(--accent-gold);
+        }
+
+        .btn-gold:hover {
+            color: white;
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(43, 108, 176, 0.5);
+        }
+
+        /* --- Header --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            background: transparent;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 1px 20px var(--shadow-subtle);
+        }
+
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .logo:hover {
+            color: var(--accent-gold);
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+
+        .lang-switch {
+            padding: 0.8rem 1.6rem;
+            border: 2px solid var(--accent-gold);
+            background: transparent;
+            color: var(--accent-gold);
+            font-weight: 500;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            min-width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .lang-switch::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gold);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .lang-switch:hover::before {
+            left: 0;
+        }
+
+        .lang-switch:hover {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .lang-switch::after {
+            content: '🌐';
+            font-size: 1rem;
+            margin-left: 0.3rem;
+        }
+
+        /* Floating Language Button (Alternative) */
+        .floating-lang {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--accent-gold);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+            display: none; /* Hidden by default, can be enabled */
+        }
+
+        .floating-lang:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
+        }
+
+        .floating-lang::before {
+            content: '🌐';
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
+        }
+
+        /* Alternative Dropdown Language Selector */
+        .lang-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .lang-dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: white;
+            min-width: 120px;
+            box-shadow: 0 8px 25px var(--shadow-medium);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .lang-dropdown:hover .lang-dropdown-content {
+            display: block;
+        }
+
+        .lang-option {
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .lang-option:hover {
+            background: var(--bg-light);
+        }
+
+        .lang-option.active {
+            background: var(--accent-gold);
+            color: white;
+        }
+
+        .flag {
+            font-size: 1.2rem;
+        }
+
+        /* --- Hero Section --- */
+        #hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+            align-items: center;
+            padding: 0 5%;
+            gap: 4rem;
+        }
+
+        .hero-content {
+            padding: 2rem 0;
+        }
+
+        .hero-content h1 {
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-content .script-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 500px;
+        }
+
+        .hero-image {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+            border-radius: 0;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .hero-image:hover img {
+            filter: grayscale(0%);
+        }
+        
+        /* --- About Section --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about-content .script-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .about-content h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+        
+        .about-content p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .about-image:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* --- Features & Services --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 20px var(--shadow-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px var(--shadow-medium);
+            border-color: var(--primary-color);
+        }
+        
+        .feature-card i {
+            font-size: 3rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover i {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transform: scale(1.1);
+        }
+
+        .feature-card h3 {
+            font-family: 'Inter', sans-serif;
+            margin-top: 0;
+        }
+        
+        .feature-card p {
+            color: var(--secondary-text);
+        }
+        
+        /* --- Portfolio Section --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            justify-items: center;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            transition: transform 0.3s ease;
+        }
+        
+        .portfolio-item img,
+        .portfolio-item picture {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .portfolio-item img {
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            will-change: transform;
+            backface-visibility: hidden;
+            display: block;
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(43, 108, 176, 0.9) 0%, rgba(214, 158, 46, 0.9) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 1rem;
+            backdrop-filter: blur(5px);
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h4 {
+            color: white;
+            font-size: 1.4rem;
+            margin: 0;
+        }
+
+        .portfolio-overlay p {
+            color: white;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        /* --- Pricing Section --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .plan-card {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 30px var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--gradient-primary);
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px var(--shadow-medium);
+            border-color: var(--primary-color);
+        }
+
+        .plan-card:nth-child(2)::before {
+            background: var(--gradient-accent);
+        }
+
+        .plan-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .plan-card .price {
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1.5rem 0;
+        }
+
+        .plan-card:nth-child(2) .price {
+            background: var(--gradient-success);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .plan-card ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            margin: 2rem 0;
+            color: var(--secondary-text);
+        }
+        
+        .plan-card li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .plan-card li i {
+            color: var(--success-color);
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .plan-card .btn {
+            margin-top: 1.5rem;
+            width: 100%;
+            display: block;
+            text-align: center;
+            border: none;
+        }
+
+        /* --- Contact Form --- */
+        .branding-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .branding-image img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .branding-image:hover img {
+            filter: grayscale(0%);
+        }
+
+        .branding-content .script-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .branding-content h2 {
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            margin-bottom: 3rem;
+            color: var(--text-light);
+            line-height: 1.1;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat h3 {
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form input, 
+        .contact-form textarea {
+            padding: 1.2rem 0;
+            border: none;
+            border-bottom: 1px solid var(--border-light);
+            background: transparent;
+            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus, 
+        .contact-form textarea:focus {
+            outline: none;
+            border-bottom-color: var(--accent-gold);
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 5%;
+            background: var(--bg-light);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .social-icons {
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-icons a {
+            margin: 0 1rem;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .social-icons a:hover {
+            color: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+
+        input, textarea {
+            padding: 1rem 1.2rem;
+            border: 2px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-color);
+            border-radius: 12px;
+            font-family: 'Lato', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(43, 108, 176, 0.1);
+            transform: translateY(-1px);
+        }
+
+        input:hover, textarea:hover {
+            border-color: var(--primary-color);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #aaa;
+        }
+        
+        /* --- FAQ Section --- */
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--shadow-light);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 8px 25px var(--shadow-medium);
+            border-color: var(--primary-color);
+        }
+        
+        .faq-question {
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: linear-gradient(90deg, transparent 0%, rgba(43, 108, 176, 0.05) 100%);
+        }
+        
+        .faq-question:hover {
+            background: linear-gradient(90deg, rgba(43, 108, 176, 0.1) 0%, rgba(43, 108, 176, 0.05) 100%);
+            color: var(--primary-color);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 1.5rem;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            color: var(--secondary-text);
+        }
+
+        .faq-answer.open {
+            max-height: 500px;
+            padding: 1.5rem;
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-answer.open + .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background: var(--gradient-primary);
+            color: white;
+            font-size: 0.9rem;
+            border-top: none;
+        }
+        
+        .social-icons {
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-icons a {
+            margin: 0 15px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.8rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+        
+        .social-icons a:hover {
+            color: white;
+            transform: translateY(-3px) scale(1.2);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            #hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+            
+            .hero-image {
+                height: 60vh;
+            }
+            
+            .about-grid,
+            .branding-grid {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 5%;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            nav {
+                order: 3;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                gap: 1.5rem;
+                margin-top: 1rem;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+            }
+            
+            .lang-switch {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.8rem;
+                min-width: 50px;
+            }
+
+            .lang-switch::after {
+                font-size: 0.9rem;
+            }
+            
+            section {
+                padding: 5rem 5%;
+            }
+            
+            .section-header h2,
+            .about-content h2,
+            .branding-content h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-image {
+                height: 50vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header id="header">
+    <a href="#" class="logo" data-i18n="logo">ACADEMIA</a>
+    <nav>
+        <a href="#about" data-i18n="nav_about">About</a>
+        <a href="#services" data-i18n="nav_services">Services</a>
+        <a href="#features" data-i18n="nav_features">Features</a>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <button class="lang-switch" id="lang-btn" title="Switch Language">TR</button>
+</header>
+
+<main>
+    <section id="hero">
+        <div class="hero-content">
+            <div class="script-title" data-i18n="hero_script">Smart</div>
+            <h1 data-i18n="hero_title">AI CHATBOTS FOR BUSINESS</h1>
+            <p data-i18n="hero_subtitle">Transform your customer service with intelligent AI chatbots that understand your business, engage customers 24/7, and boost sales automatically.</p>
+            <a href="#services" class="btn" data-i18n="hero_btn">Start Building</a>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3" alt="AI Chatbot Interface" />
+        </div>
+    </section>
+
+    <section id="about" class="section-dark">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <div class="script-title" data-i18n="about_script">Why Choose</div>
+                    <h2 data-i18n="about_title">AI CHATBOTS?</h2>
+                    <p data-i18n="about_p1">AI chatbots revolutionize customer engagement by providing instant, personalized responses 24/7. They handle multiple conversations simultaneously, reduce response times, and never take a break.</p>
+                    <p data-i18n="about_p2">Our intelligent chatbots learn from every interaction, becoming smarter over time. They can qualify leads, book appointments, answer FAQs, and seamlessly transfer complex queries to human agents when needed.</p>
+                    <a href="#contact" class="btn btn-gold" data-i18n="about_btn">Learn More</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3" 
+                         alt="AI Technology" 
+                         loading="lazy" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section-light">
+        <div class="container">
+            <div class="section-header">
+                <div class="script-title" data-i18n="services_script">Our</div>
+                <h2 data-i18n="services_title">CHATBOT SOLUTIONS</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Customer Support Chatbot" />
+                    </div>
+                    <h3 data-i18n="service1_title">CUSTOMER SUPPORT</h3>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Sales Assistant Bot" />
+                    </div>
+                    <h3 data-i18n="service2_title">SALES ASSISTANT</h3>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Lead Generation Bot" />
+                    </div>
+                    <h3 data-i18n="service3_title">LEAD GENERATION</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="features" class="section-light">
+        <div class="container">
+            <div class="section-header">
+                <div class="script-title" data-i18n="features_script">Key</div>
+                <h2 data-i18n="features_title">CHATBOT FEATURES</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3" alt="24/7 Availability" />
+                    </div>
+                    <h3 data-i18n="feature1_title">24/7 AVAILABILITY</h3>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Multi-language Support" />
+                    </div>
+                    <h3 data-i18n="feature2_title">MULTI-LANGUAGE</h3>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Smart Analytics" />
+                    </div>
+                    <h3 data-i18n="feature3_title">SMART ANALYTICS</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="results" class="section-darker">
+        <div class="container">
+            <div class="branding-grid">
+                <div class="branding-image">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Business Growth Analytics" />
+                </div>
+                <div class="branding-content">
+                    <div class="script-title" data-i18n="results_script">Proven</div>
+                    <h2 data-i18n="results_title">BUSINESS RESULTS</h2>
+                    <div class="stats">
+                        <div class="stat">
+                            <h3>300%</h3>
+                            <p data-i18n="stat1">Increase in Lead Generation</p>
+                        </div>
+                        <div class="stat">
+                            <h3>85%</h3>
+                            <p data-i18n="stat2">Reduction in Response Time</p>
+                        </div>
+                        <div class="stat">
+                            <h3>24/7</h3>
+                            <p data-i18n="stat3">Customer Support Coverage</p>
+                        </div>
+                    </div>
+                    <a href="#contact" class="btn btn-gold" data-i18n="results_btn">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-light">
+        <div class="container">
+            <div class="section-header">
+                <div class="script-title" data-i18n="contact_script">Get in</div>
+                <h2 data-i18n="contact_title">TOUCH</h2>
+            </div>
+            <form class="contact-form">
+                <input type="text" id="name" name="name" data-i18n-placeholder="form_name" placeholder="Your Name" required>
+                <input type="email" id="email" name="email" data-i18n-placeholder="form_email" placeholder="Your Email" required>
+                <textarea id="message" name="message" rows="5" data-i18n-placeholder="form_message" placeholder="Tell us about your business needs" required></textarea>
+                <button type="submit" class="btn" data-i18n="form_submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="social-icons">
+        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+    </div>
+    <p>&copy; 2025 ACADEMIA STUDIO. All Rights Reserved.</p>
+</footer>
+
+<script>
+    const translations = {
+        en: {
+            logo: "ACADEMIA",
+            nav_about: "About",
+            nav_services: "Services", 
+            nav_features: "Features",
+            nav_contact: "Contact",
+            hero_script: "Smart",
+            hero_title: "AI CHATBOTS FOR BUSINESS",
+            hero_subtitle: "Transform your customer service with intelligent AI chatbots that understand your business, engage customers 24/7, and boost sales automatically.",
+            hero_btn: "Start Building",
+            services_script: "Our",
+            services_title: "CHATBOT SOLUTIONS",
+            service1_title: "CUSTOMER SUPPORT",
+            service2_title: "SALES ASSISTANT", 
+            service3_title: "LEAD GENERATION",
+            about_script: "Why Choose",
+            about_title: "AI CHATBOTS?",
+            about_p1: "AI chatbots revolutionize customer engagement by providing instant, personalized responses 24/7. They handle multiple conversations simultaneously, reduce response times, and never take a break.",
+            about_p2: "Our intelligent chatbots learn from every interaction, becoming smarter over time. They can qualify leads, book appointments, answer FAQs, and seamlessly transfer complex queries to human agents when needed.",
+            about_btn: "Learn More",
+            features_script: "Key",
+            features_title: "CHATBOT FEATURES",
+            feature1_title: "24/7 AVAILABILITY",
+            feature2_title: "MULTI-LANGUAGE",
+            feature3_title: "SMART ANALYTICS",
+            results_script: "Proven",
+            results_title: "BUSINESS RESULTS",
+            results_btn: "Get Started",
+            stat1: "Increase in Lead Generation",
+            stat2: "Reduction in Response Time", 
+            stat3: "Customer Support Coverage",
+            contact_script: "Get in",
+            contact_title: "TOUCH",
+            form_name: "Your Name",
+            form_email: "Your Email",
+            form_message: "Tell us about your business needs",
+            form_submit: "Send Message",
+            about_title: "Where Intelligence Meets Insight",
+            about_subtitle: "Our mission is to empower universities, research institutions, and corporations with AI solutions that streamline information and accelerate discovery.",
+            about_p1: "At ACADEMIA, we are at the intersection of AI and academic rigor. Our team of expert data scientists and researchers is dedicated to building intelligent systems that can process vast amounts of unstructured data, from scientific papers to legal documents. We specialize in creating custom Large Language Models (LLMs) that act as a central repository for knowledge, enabling instant retrieval and deep analysis.",
+            about_p2: "Our solutions are designed for sectors where information is paramount, including academia, legal, and healthcare. We provide a platform for secure data management, automated research assistance, and powerful semantic search. By integrating our AI tools into your workflow, you can reduce research time, enhance decision-making, and unlock new possibilities for innovation. Our commitment to privacy and data integrity is unwavering, ensuring your sensitive information is always protected.",
+            services_title: "Your Personal AI, Our Expertise",
+            services_subtitle: "We create secure, custom chatbots that become experts on your internal information.",
+            service1_title: "Bespoke Chatbot Development",
+            service1_desc: "We build advanced, conversational AI agents tailored to your business data, providing instant, accurate support.",
+            service2_title: "Data Security & Privacy",
+            service2_desc: "Your data is our top priority. We implement enterprise-grade encryption and security protocols to ensure complete confidentiality.",
+            service3_title: "Intelligent Information Retrieval",
+            service3_desc: "Our AI quickly finds and summarizes information from thousands of your internal documents, saving you hours of time.",
+            portfolio_title: "Case Studies in Action",
+            portfolio_subtitle: "See how our AI solutions are making a real impact in diverse fields.",
+            portfolio1_title: "University Research Assistant",
+            portfolio1_desc: "Developed an AI assistant for a major university to help students and faculty quickly find relevant research papers and data sets.",
+            portfolio2_title: "Medical Data Analyzer",
+            portfolio2_desc: "Created a custom LLM for a healthcare company to analyze patient records and research papers to identify trends and potential diagnoses.",
+            portfolio3_title: "Legal Document Reviewer",
+            portfolio3_desc: "Built an AI tool for a law firm that can review thousands of legal documents in minutes, flagging key clauses and relevant precedents.",
+            pricing_title: "Transparent Pricing, Tailored Value",
+            pricing_subtitle: "Choose a plan that aligns with your research goals. All plans are fully customizable.",
+            plan1_title: "Standard",
+            plan1_price: "$1,800/mo",
+            plan1_feature1: "Custom Knowledge Base",
+            plan1_feature2: "100,000 queries/mo",
+            plan1_feature3: "Basic Analytics Dashboard",
+            plan1_feature4: "Standard Support",
+            plan2_title: "Enterprise",
+            plan2_price: "$8,500/mo+",
+            plan2_feature1: "Bespoke LLM Development",
+            plan2_feature2: "Unlimited queries",
+            plan2_feature3: "Advanced Analytics & Reporting",
+            plan2_feature4: "Dedicated Account Manager",
+            plan_btn: "Get Started",
+            faq_title: "Frequently Asked Questions",
+            faq1_q: "What kind of data can your AI models process?",
+            faq1_a: "Our models are designed to handle a wide variety of structured and unstructured data, including text documents, PDFs, research papers, legal contracts, and internal databases.",
+            faq2_q: "How do you ensure the privacy of sensitive information?",
+            faq2_a: "We implement robust, enterprise-grade security protocols. Our systems use end-to-end encryption and we offer private, on-premise deployment options for clients with strict data residency requirements. Your data integrity and privacy are our highest priorities.",
+            faq3_q: "What is the typical development timeline?",
+            faq3_a: "The timeline depends on the complexity of the project. A basic knowledge base can be deployed in 4-6 weeks, while a more complex, customized LLM may take 3-6 months. We work closely with your team throughout the entire process to ensure a successful outcome.",
+            contact_title: "Connect with Our Experts",
+            contact_subtitle: "Let's discuss how AI can transform your organization's knowledge management. Send us a message and we'll be in touch shortly.",
+            form_name: "Your Name",
+            form_email: "Your Email",
+            form_message: "Your Message",
+            form_submit: "Send Message",
+        },
+        tr: {
+            logo: "ACADEMIA",
+            nav_about: "Hakkında",
+            nav_services: "Hizmetler",
+            nav_features: "Özellikler", 
+            nav_contact: "İletişim",
+            hero_script: "Akıllı",
+            hero_title: "İŞLETMELER İÇİN YAPAY ZEKA BOTLARI",
+            hero_subtitle: "İşinizi anlayan, müşterilerinizle 7/24 etkileşim kuran ve satışları otomatik olarak artıran akıllı yapay zeka chatbotları ile müşteri hizmetlerinizi dönüştürün.",
+            hero_btn: "Başlayalım",
+            services_script: "Bizim",
+            services_title: "CHATBOT ÇÖZÜMLERİMİZ",
+            service1_title: "MÜŞTERİ DESTEĞİ",
+            service2_title: "SATIŞ ASİSTANI",
+            service3_title: "POTANSIYEL MÜŞTERİ",
+            about_script: "Neden",
+            about_title: "YAPAY ZEKA BOTLARI?",
+            about_p1: "Yapay zeka chatbotları, 7/24 anında ve kişiselleştirilmiş yanıtlar sağlayarak müşteri etkileşiminde devrim yaratır. Aynı anda birden fazla konuşmayı yönetir, yanıt sürelerini azaltır ve hiç mola vermez.",
+            about_p2: "Akıllı chatbotlarımız her etkileşimden öğrenir ve zamanla daha akıllı hale gelir. Potansiyel müşterileri değerlendirebilir, randevu alabilir, sık sorulan soruları yanıtlayabilir ve karmaşık sorguları gerektiğinde insan acentelere sorunsuz bir şekilde aktarabilir.",
+            about_btn: "Daha Fazla",
+            features_script: "Temel",
+            features_title: "CHATBOT ÖZELLİKLERİ",
+            feature1_title: "7/24 ERİŞİM",
+            feature2_title: "ÇOK DİLLİ DESTEK",
+            feature3_title: "AKILLI ANALİTİK",
+            results_script: "Kanıtlanmış",
+            results_title: "İŞ SONUÇLARI",
+            results_btn: "Başlayın",
+            stat1: "Potansiyel Müşteri Artışı",
+            stat2: "Yanıt Süresinde Azalma",
+            stat3: "Müşteri Destek Kapsamı",
+            contact_script: "İletişime",
+            contact_title: "GEÇİN",
+            form_name: "Adınız",
+            form_email: "E-posta Adresiniz",
+            form_message: "İş ihtiyaçlarınızı bize anlatın",
+            form_submit: "Mesaj Gönder",
+            about_title: "Zeka, İçgörü ile Buluştuğunda",
+            about_subtitle: "Misyonumuz, üniversiteleri, araştırma kurumlarını ve şirketleri bilgiyi düzenleyen ve keşfi hızlandıran yapay zeka çözümleriyle güçlendirmektir.",
+            about_p1: "ACADEMIA'da yapay zeka ve akademik titizliğin kesişim noktasında bulunuyoruz. Uzman veri bilimcileri ve araştırmacılardan oluşan ekibimiz, bilimsel makalelerden hukuki belgelere kadar çok miktarda yapılandırılmamış veriyi işleyebilen akıllı sistemler oluşturmaya kendini adamıştır. Bilgi için merkezi bir havuz görevi gören, anında geri çağırma ve derinlemesine analiz sağlayan özel Büyük Dil Modelleri (LLM'ler) oluşturma konusunda uzmanız.",
+            about_p2: "Çözümlerimiz, akademi, hukuk ve sağlık dahil olmak üzere bilginin her şeyden önemli olduğu sektörler için tasarlanmıştır. Güvenli veri yönetimi, otomatik araştırma yardımı ve güçlü anlamsal arama için bir platform sağlıyoruz. Yapay zeka araçlarımızı iş akışınıza entegre ederek, araştırma süresini kısaltabilir, karar almayı geliştirebilir ve inovasyon için yeni olanakların kilidini açabilirsiniz. Hassas bilgilerinizin her zaman korunmasını sağlayarak, gizliliğe ve veri bütünlüğüne olan bağlılığımız sarsılmazdır.",
+            services_title: "Kişisel Yapay Zekanız, Uzmanlığımız",
+            services_subtitle: "Dahili bilgilerinizi bilen güvenli ve özel sohbet botları oluşturuyoruz.",
+            service1_title: "Özel Sohbet Botu Geliştirme",
+            service1_desc: "İş verilerinize özel olarak uyarlanmış, anında ve doğru destek sağlayan gelişmiş, konuşkan yapay zeka ajanları inşa ediyoruz.",
+            service2_title: "Veri Güvenliği ve Gizliliği",
+            service2_desc: "Verileriniz bizim en büyük önceliğimizdir. Tam gizliliği sağlamak için kurumsal düzeyde şifreleme ve güvenlik protokolleri uyguluyoruz.",
+            service3_title: "Akıllı Bilgi Erişimi",
+            service3_desc: "Yapay zekamız, binlerce dahili belgenizdeki bilgileri hızla bulup özetleyerek size saatlerce zaman kazandırır.",
+            portfolio_title: "Uygulamadaki Örnek Çalışmalarımız",
+            portfolio_subtitle: "Yapay zeka çözümlerimizin çeşitli alanlarda nasıl gerçek bir etki yarattığını görün.",
+            portfolio1_title: "Üniversite Araştırma Asistanı",
+            portfolio1_desc: "Öğrenci ve öğretim üyelerinin ilgili araştırma makalelerini ve veri setlerini hızla bulmalarına yardımcı olmak için büyük bir üniversite için bir yapay zeka asistanı geliştirdi.",
+            portfolio2_title: "Tıbbi Veri Analisti",
+            portfolio2_desc: "Trendleri ve potansiyel teşhisleri belirlemek için hasta kayıtlarını ve araştırma makalelerini analiz etmek üzere bir sağlık şirketi için özel bir LLM oluşturdu.",
+            portfolio3_title: "Hukuksal Belge İnceleyicisi",
+            portfolio3_desc: "Bir hukuk firması için, binlerce hukuki belgeyi dakikalar içinde inceleyebilen, anahtar maddeleri ve ilgili emsalleri işaretleyen bir yapay zeka aracı inşa etti.",
+            pricing_title: "Şeffaf Fiyatlandırma, Özel Değer",
+            pricing_subtitle: "Araştırma hedeflerinize uygun bir plan seçin. Tüm planlar tamamen özelleştirilebilir.",
+            plan1_title: "Standart",
+            plan1_price: "1.800$/ay",
+            plan1_feature1: "Özel Bilgi Tabanı",
+            plan1_feature2: "100.000 sorgu/ay",
+            plan1_feature3: "Temel Analitik Paneli",
+            plan1_feature4: "Standart Destek",
+            plan2_title: "Kurumsal",
+            plan2_price: "8.500$/ay+",
+            plan2_feature1: "Özel LLM Geliştirme",
+            plan2_feature2: "Sınırsız sorgu",
+            plan2_feature3: "Gelişmiş Analitik ve Raporlama",
+            plan2_feature4: "Özel Hesap Yöneticisi",
+            plan_btn: "Başlayın",
+            faq_title: "Sıkça Sorulan Sorular",
+            faq1_q: "Yapay zeka modelleriniz ne tür verileri işleyebilir?",
+            faq1_a: "Modellerimiz, metin belgeleri, PDF'ler, araştırma makaleleri, hukuki sözleşmeler و dahili veritabanları dahil olmak üzere çok çeşitli yapılandırılmış و yapılandırılmamış verileri işlemek için tasarlanmıştır.",
+            faq2_q: "Hassas bilgilerin gizliliğini nasıl sağlıyorsunuz?",
+            faq2_a: "Sağlam, kurumsal düzeyde güvenlik protokolleri uyguluyoruz. Sistemlerimiz uçtan uca şifreleme kullanır ve katı veri yerleşimi gereksinimleri olan müşteriler için özel, şirket içi dağıtım seçenekleri sunarız. Veri bütünlüğünüz ve gizliliğiniz en yüksek önceliğimizdir.",
+            faq3_q: "Tipik geliştirme süresi nedir?",
+            faq3_a: "Zaman çizelgesi projenin karmaşıklığına bağlıdır. Temel bir bilgi tabanı 4-6 hafta içinde dağıtılabilirken, daha karmaşık, özelleştirilmiş bir LLM 3-6 ay sürebilir. Başarılı bir sonuç sağlamak için tüm süreç boyunca ekibinizle yakın çalışırız.",
+            contact_title: "Uzmanlarımızla İletişim Kurun",
+            contact_subtitle: "Yapay zekanın kuruluşunuzun bilgi yönetimini nasıl dönüştürebileceğini tartışalım. Bize bir mesaj gönderin, en kısa sürede sizinle iletişime geçeceğiz.",
+            form_name: "Adınız",
+            form_email: "E-posta Adresiniz",
+            form_message: "Mesajınız",
+            form_submit: "Mesajı Gönder",
+        }
+    };
+
+    let currentLang = localStorage.getItem("lang") || "en";
+    
+    // Optimized FAQ functionality with event delegation
+    document.addEventListener('click', (event) => {
+        if (event.target.classList.contains('faq-question')) {
+            const answer = event.target.nextElementSibling;
+            
+            // Close other open answers
+            document.querySelectorAll('.faq-answer.open').forEach(openAnswer => {
+                if (openAnswer !== answer) {
+                    openAnswer.classList.remove('open');
+                }
+            });
+            
+            answer.classList.toggle('open');
+        }
+    });
+
+    // Optimized language setting with caching
+    const langElements = {
+        i18n: document.querySelectorAll("[data-i18n]"),
+        placeholder: document.querySelectorAll("[data-i18n-placeholder]"),
+        question: document.querySelectorAll("[data-i18n-question]"),
+        answer: document.querySelectorAll("[data-i18n-answer]")
+    };
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem("lang", lang);
+        document.documentElement.lang = lang;
+        
+        const langData = translations[lang];
+        
+        langElements.i18n.forEach(el => {
+            const key = el.getAttribute("data-i18n");
+            if (langData[key]) el.textContent = langData[key];
+        });
+        
+        langElements.placeholder.forEach(el => {
+            const key = el.getAttribute("data-i18n-placeholder");
+            if (langData[key]) el.placeholder = langData[key];
+        });
+        
+        langElements.question.forEach(el => {
+            const key = el.getAttribute("data-i18n-question");
+            if (langData[key]) el.textContent = langData[key];
+        });
+        
+        langElements.answer.forEach(el => {
+            const key = el.getAttribute("data-i18n-answer");
+            if (langData[key]) el.textContent = langData[key];
+        });
+        
+        const langBtn = document.getElementById("lang-btn");
+        langBtn.textContent = lang === "en" ? "TR" : "EN";
+        langBtn.title = lang === "en" ? "Türkçe'ye geç" : "Switch to English";
+    }
+
+    document.getElementById("lang-btn").addEventListener("click", (e) => {
+        // Add visual feedback
+        e.target.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            e.target.style.transform = '';
+        }, 150);
+        
+        // Switch language
+        setLanguage(currentLang === "en" ? "tr" : "en");
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+        const header = document.getElementById('header');
+        if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
+    // Initialize language on DOM content loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        setLanguage(currentLang);
+    });
+</script>
+
+</body>
+</html>
